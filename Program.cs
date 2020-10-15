@@ -230,9 +230,22 @@ namespace Gestionnaire_Evaluations
             //{
             //  Console.WriteLine("{0} {1}", students.firstName, students.lastName);
             //}
+
             JObject stud = JObject.Parse(jsonString);
             IList<JToken> students = stud["Students"].Children().ToList();
             Console.WriteLine(students);
+
+            IList<Student> studentlist = new List<Student>();
+            foreach (JToken result in students)
+            {
+                Student stu = result.ToObject<Student>();
+                studentlist.Add(stu);
+            }
+            foreach (Student s in studentlist)
+            {
+                Console.WriteLine(s.firstName);
+            }
+            
         }
     }
 }

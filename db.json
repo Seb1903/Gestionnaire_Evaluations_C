@@ -1,11 +1,47 @@
-﻿{	"Students" :  [
-		{	"firstName": "Sebastien Martinez",
-			"lastName": "Martinez"
-		
+﻿{
+	"Students": [
+		{
+			"firstName": "Seb",
+			"lastName": "Martinez",
+			"evaluations": [
+				{
+					"info": 10
+				},
+				{
+					"network": 15
+				}
+			]
 		},
 
-		{	"firstName": "Sebastien",
-			"lastName": "Marti"
+		{
+			"firstName": "Sebastien",
+			"lastName": "Marti",
+			"evaluations": [
+				{ "info": 10 
+				},
+				{ "network": 15 
+				}
+			]
 		}
+	],
+	"Teachers": [
+		{
+			"firstName": "Quentin",
+			"lastName": "Lurkin",
+			"Salary": "10000"
+		},
+		{
+			"firstName": "André",
+			"lastName": "Lorge",
+			"Salary": "9999"
+		}
+	],
+	"Activities": [
+
+	],
+	"Evaluations": [
+
 	]
+
+
 }
