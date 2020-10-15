@@ -1,10 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using System.Security.Cryptography.X509Certificates;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
-namespace Gestionnaire_Évaluations
+namespace Gestionnaire_Evaluations
 {
+    
+
     public class Person
     {
         public String firstName;
@@ -36,7 +41,7 @@ namespace Gestionnaire_Évaluations
         }
         public double Average()
         {
-            int Sum = 0;
+            float Sum = 0;
             int credits = 0;
             for (int i = 0; i < evaluations.Count ; i++)
             {
@@ -85,17 +90,15 @@ namespace Gestionnaire_Évaluations
     }
     public abstract class Evaluation
     {
-        public int point;
+        public float point;
         public Activity activity;
         public Evaluation(Activity activity)
         {
             this.activity = activity;
-
-         // surement pas juste voir Note()        
         }
-        public abstract void setNote(int x);
+        public abstract void setNote(float x);
         public abstract void setAppreciation(string x);
-        public virtual int Note()
+        public virtual float Note()
         {
             return this.point; 
         }
@@ -103,16 +106,19 @@ namespace Gestionnaire_Évaluations
     }
     public class Cote : Evaluation
     {
-        public new int point;
+        public new float point;
         public Cote(Activity activity)
            : base(activity)
         {
         }
-        public override void setNote(int x)
+        public override void setNote(float x)
         {
-            this.point = x;
+            if (x >= 0 && x <= 20)
+            {
+                this.point = x;
+            }    
         }
-        public override int Note()
+        public override float Note()
         {
             return this.point;
         }
@@ -124,8 +130,8 @@ namespace Gestionnaire_Évaluations
     }
     public class Appreciation : Evaluation
     {
-        public new int point;
-        public int x; 
+        public new float point;
+        public float x; 
         public Appreciation(string appreciation, Activity activity)
            : base(activity)
         {
@@ -135,42 +141,42 @@ namespace Gestionnaire_Évaluations
         {
             this.point = Equivalent(appreciation);
         }
-        private int Equivalent(string apr)
+        private float Equivalent(string apr)
         {
             switch (apr)
             {
-                case "TB":
+                case "X":
                     return 20;
+                case "TB":
+                    return 16;
                 case "B":
-                    return 15;
+                    return 12;
+                case "C":
+                    return 8;
                 case "N":
-                    return 10;
-                case "PB":
-                    return 5;
-                case "Nul":
-                    return 0;
+                    return 4;
 
                 default:
                     return 10;
             }
         }
-        public override int Note()
+        public override float Note()
         {
             return this.point;
         }
-        public override void setNote(int x)
+        public override void setNote(float x)
         {
         }
     }
 
-    class Program
+    public class Program
     {
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
 
             Person Moi = new Person("Sebastien", "Martinez");
-            Moi.DisplayName(); 
+            Moi.DisplayName();
 
             Student marti = new Student("Marti", "McFLy");
             marti.DisplayName();
@@ -180,7 +186,6 @@ namespace Gestionnaire_Évaluations
             Lurkin.DisplayName();
 
             Activity info = new Activity(6, "informatique", "3BEee", Lurkin);
-            //Console.WriteLine((info.teacher).DisplayName());  ne marche pas ? 
 
             Evaluation e = new Cote(info);
             Console.WriteLine(e.Note());
@@ -189,11 +194,10 @@ namespace Gestionnaire_Évaluations
             marti.AddEval(e);
 
             Activity chimie = new Activity(6, "chimie", "3BEch", Lurkin);
-            //Console.WriteLine((info.teacher).DisplayName());  ne marche pas ? 
 
             Evaluation i = new Cote(chimie);
             Console.WriteLine(i.Note());
-            i.setNote(18); 
+            i.setNote(18);
 
             marti.AddEval(i);
             Console.WriteLine(marti.Average());
@@ -201,13 +205,30 @@ namespace Gestionnaire_Évaluations
 
             marti.Bulletin();
 
-            Evaluation f = new Appreciation("TB",info);
+            Evaluation f = new Appreciation("TB", info);
             marti.AddEval(f);
             f.setAppreciation("TB");
 
             marti.Bulletin();
 
+            string jsonData = JsonConvert.SerializeObject(marti);
 
+            File.WriteAllText("db.json",jsonData);
+
+            //Program.LoadJSON();
+        }
+
+        private static void LoadJSON()
+        {
+            string jsonString = File.ReadAllText("C:/Users/Sebastien/source/repos/Gestionnaire_Évaluations/db.json");
+            Student student = JsonConvert.DeserializeObject<Student>(jsonString);
+            Console.WriteLine(student.firstName);
+
+            dynamic array = JsonConvert.DeserializeObject(jsonString);
+            foreach (var students in array)
+            {
+                Console.WriteLine("{0} {1}", students.firstName, students.lastName);
+            }
 
         }
     }
