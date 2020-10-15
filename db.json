@@ -3,25 +3,13 @@
 		{
 			"firstName": "Seb",
 			"lastName": "Martinez",
-			"evaluations": [
-				{
-					"info": 10
-				},
-				{
-					"network": 15
-				}
-			]
+			//"evaluations": ["info", "chimie"]
 		},
 
 		{
 			"firstName": "Sebastien",
 			"lastName": "Marti",
-			"evaluations": [
-				{ "info": 10 
-				},
-				{ "network": 15 
-				}
-			]
+			//"evaluations": ["info"]
 		}
 	],
 	"Teachers": [
