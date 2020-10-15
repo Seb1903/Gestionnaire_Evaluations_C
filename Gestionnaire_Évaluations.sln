@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30517.126
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gestionnaire_Évaluations", "Gestionnaire_Évaluations.csproj", "{9DB4498D-C87C-49F1-93FB-EC0DCC5A5FCB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9DB4498D-C87C-49F1-93FB-EC0DCC5A5FCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9DB4498D-C87C-49F1-93FB-EC0DCC5A5FCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9DB4498D-C87C-49F1-93FB-EC0DCC5A5FCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9DB4498D-C87C-49F1-93FB-EC0DCC5A5FCB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5A116884-3ED6-4024-8623-1C4046743543}
+	EndGlobalSection
+EndGlobal
