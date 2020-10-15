@@ -1,9 +1,7 @@
-﻿{	"Students" : { [
+﻿{	"Students" :  [
 		{	"firstName": "Sebastien Martinez",
-			"lastName": "Martinez",
-			"Evaluations": [
-
-			]
+			"lastName": "Martinez"
+		
 		},
 
 		{	"firstName": "Sebastien",

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -215,21 +216,23 @@ namespace Gestionnaire_Evaluations
 
             File.WriteAllText("db.json",jsonData);
 
-            //Program.LoadJSON();
+            Program.LoadJSON();
         }
 
         private static void LoadJSON()
         {
             string jsonString = File.ReadAllText("C:/Users/Sebastien/source/repos/Gestionnaire_Évaluations/db.json");
-            Student student = JsonConvert.DeserializeObject<Student>(jsonString);
-            Console.WriteLine(student.firstName);
+            //Student student = JsonConvert.DeserializeObject<Student>(jsonString);
+            //Console.WriteLine(student.firstName);
 
-            dynamic array = JsonConvert.DeserializeObject(jsonString);
-            foreach (var students in array)
-            {
-                Console.WriteLine("{0} {1}", students.firstName, students.lastName);
-            }
-
+            // dynamic array = JsonConvert.DeserializeObject(jsonString);
+            //foreach (var students in array)
+            //{
+            //  Console.WriteLine("{0} {1}", students.firstName, students.lastName);
+            //}
+            JObject stud = JObject.Parse(jsonString);
+            IList<JToken> students = stud["Students"].Children().ToList();
+            Console.WriteLine(students);
         }
     }
 }
