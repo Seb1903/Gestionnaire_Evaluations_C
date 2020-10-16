@@ -3,13 +3,16 @@
 		{
 			"firstName": "Seb",
 			"lastName": "Martinez",
-			//"evaluations": ["info", "chimie"]
+			"evaluations": [
+				{ "$ref": "#/Evaluations/0"},
+				{ "$ref": "#/Evaluations/1" }
+			] 
 		},
 
 		{
 			"firstName": "Sebastien",
 			"lastName": "Marti",
-			//"evaluations": ["info"]
+			"evaluations": [ { "$ref": "#/Evaluations/2" } ]
 		}
 	],
 	"Teachers": [
@@ -25,11 +28,42 @@
 		}
 	],
 	"Activities": [
+		{
+			"ECTS ": 5,
+			"Name ": "info",
+			"Code": "3BEse",
+			"Teacher": { "$ref": "#/Teachers/0" }
+		},
+		{
+			"ECTS ": 5,
+			"Name ": "network",
+			"Code": "3BEnet",
+			"Teacher": {"$ref": "#/Teachers/1"} 
+		}
 
 	],
 	"Evaluations": [
+		{
+			"Cote": [
+				{
+					"activity": { "$ref": "#/Activities/0" },
+					"point": 20
+				},
+				{
+					"activity": { "$ref": "#/Activities/1" },
+					"point": 15.0
+				},
+				{
+					"point": 12.0,
+					"activity": { "$ref": "#/Activities/0" }
+				}
+			]
+		},
+		{
+			"Appreciation": [
 
+			]
+
+		}
 	]
-
-
 }

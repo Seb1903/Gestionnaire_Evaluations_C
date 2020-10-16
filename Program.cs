@@ -29,7 +29,6 @@ namespace Gestionnaire_Evaluations
 
     public class Student : Person
     {
-        public Evaluation eval;
         public List<Evaluation> evaluations = new List<Evaluation>();
         public Student (string firstName, string lastName)
             :base (firstName, lastName)
@@ -37,7 +36,6 @@ namespace Gestionnaire_Evaluations
         }
         public void AddEval(Evaluation e)
         {
-            eval = e;
             evaluations.Add(e); 
         }
         public double Average()
@@ -132,11 +130,9 @@ namespace Gestionnaire_Evaluations
     public class Appreciation : Evaluation
     {
         public new float point;
-        public float x; 
         public Appreciation(string appreciation, Activity activity)
            : base(activity)
         {
-            x = Equivalent(appreciation);
         }
         public override void setAppreciation(string appreciation)
         {
@@ -222,29 +218,33 @@ namespace Gestionnaire_Evaluations
         private static void LoadJSON()
         {
             string jsonString = File.ReadAllText("C:/Users/Sebastien/source/repos/Gestionnaire_Évaluations/db.json");
-            //Student student = JsonConvert.DeserializeObject<Student>(jsonString);
-            //Console.WriteLine(student.firstName);
-
-            // dynamic array = JsonConvert.DeserializeObject(jsonString);
-            //foreach (var students in array)
-            //{
-            //  Console.WriteLine("{0} {1}", students.firstName, students.lastName);
-            //}
 
             JObject stud = JObject.Parse(jsonString);
-            IList<JToken> students = stud["Students"].Children().ToList();
-            Console.WriteLine(students);
-
+            IList<JToken> students = stud["Students"].Children().ToList();    // ici je cherche tous mes students dans mon JSON 
             IList<Student> studentlist = new List<Student>();
             foreach (JToken result in students)
             {
-                Student stu = result.ToObject<Student>();
-                studentlist.Add(stu);
+                Student stu = result.ToObject<Student>();                        // Ici je les créé en objets me semble-t-il
+                studentlist.Add(stu);                                     // cette liste me servira à imprimer les bulletins après, c'est une liste d'objets 
             }
-            foreach (Student s in studentlist)
+
+
+
+            JObject ev = JObject.Parse(jsonString);
+            IList<JToken> evals = ev["Evaluations"].Children().ToList();     // ici pareil qu'avec students, on les cherche puis on les crée 
+            foreach (JToken result in evals)
             {
-                Console.WriteLine(s.firstName);
+                Evaluation iter = result.ToObject<Evaluation>();
             }
+
+
+
+            
+            foreach (Student s in studentlist)   //je parcours chaque objet Student dans la list d'objets Students
+            {
+                Console.WriteLine(s.Average());
+            }
+
             
         }
     }
