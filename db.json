@@ -1,20 +1,4 @@
 ﻿{
-	"Students": [
-		{
-			"firstName": "Seb",
-			"lastName": "Martinez",
-			"evaluations": [
-				{ "$ref": "#/Evaluations/0"},
-				{ "$ref": "#/Evaluations/1" }
-			] 
-		},
-
-		{
-			"firstName": "Sebastien",
-			"lastName": "Marti",
-			"evaluations": [ { "$ref": "#/Evaluations/2" } ]
-		}
-	],
 	"Teachers": [
 		{
 			"firstName": "Quentin",
@@ -38,32 +22,61 @@
 			"ECTS ": 5,
 			"Name ": "network",
 			"Code": "3BEnet",
-			"Teacher": {"$ref": "#/Teachers/1"} 
+			"Teacher": { "$ref": "#/Teachers/1" }
 		}
 
 	],
+	//"Cotes": [
+	//	{
+	//	"$id": "info1"
+	//		"activity": { "$ref": "#/Activities/0" },
+	//		"point": 20
+	//	},
+	//	{
+	//		"id": "network1",
+	//		"activity": { "$ref": "#/Activities/1" },
+	//		"point": 15.0
+	//	},
+	//	{
+	///		"id": "info2",
+	//		"point": 12.0,
+	//	"activity": { "$ref": "#/Activities/0" }
+	//	}
+	//],
+	//"Appreciations": [
+	//
+	//],
 	"Evaluations": [
 		{
-			"Cote": [
-				{
-					"activity": { "$ref": "#/Activities/0" },
-					"point": 20
-				},
-				{
-					"activity": { "$ref": "#/Activities/1" },
-					"point": 15.0
-				},
-				{
-					"point": 12.0,
-					"activity": { "$ref": "#/Activities/0" }
-				}
-			]
+			"$id": "info1",
+			"activity": { "$ref": "#/Activities/0" },
+			"point": [ 20 ]
 		},
 		{
-			"Appreciation": [
-
+			"$id": "network1",
+			"activity": { "$ref": "#/Activities/1" },
+			"point": [15.0]
+		},
+		{
+			"$id": "info2",
+			"point": [ 12.0 ],
+			"activity": { "$ref": "#/Activities/0" }
+		}
+	],
+	"Students": [
+		{
+			"firstName": "Seb",
+			"lastName": "Martinez",
+			"evaluations": [
+				{ "$ref": "network1" },
+				{ "$ref": "info1" }
 			]
+		},
 
+		{
+			"evaluations": [ { "$ref": "info2" } ],
+			"firstName": "Sebastien",
+			"lastName": "Marti"
 		}
 	]
 }

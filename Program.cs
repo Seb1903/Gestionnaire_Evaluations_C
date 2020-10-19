@@ -36,10 +36,11 @@ namespace Gestionnaire_Evaluations
         }
         public void AddEval(Evaluation e)
         {
-            evaluations.Add(e); 
+            evaluations.Add(e);
         }
         public double Average()
         {
+            Console.WriteLine(evaluations[0]);
             float Sum = 0;
             int credits = 0;
             for (int i = 0; i < evaluations.Count ; i++)
@@ -87,7 +88,7 @@ namespace Gestionnaire_Evaluations
             this.Code = Code; 
         }
     }
-    public abstract class Evaluation
+    public class Evaluation //abstract ?
     {
         public float point;
         public Activity activity;
@@ -95,8 +96,8 @@ namespace Gestionnaire_Evaluations
         {
             this.activity = activity;
         }
-        public abstract void setNote(float x);
-        public abstract void setAppreciation(string x);
+        //public abstract void setNote(float x);
+      //  public abstract void setAppreciation(string x);
         public virtual float Note()
         {
             return this.point; 
@@ -106,11 +107,12 @@ namespace Gestionnaire_Evaluations
     public class Cote : Evaluation
     {
         public new float point;
-        public Cote(Activity activity)
+        public  Cote(Activity activity, float y)
            : base(activity)
         {
+            this.point = y;
         }
-        public override void setNote(float x)
+        public void setNote(float x)
         {
             if (x >= 0 && x <= 20)
             {
@@ -121,9 +123,6 @@ namespace Gestionnaire_Evaluations
         {
             return this.point;
         }
-        public override void setAppreciation(string appreciation)
-        {
-        }
 
 
     }
@@ -133,8 +132,9 @@ namespace Gestionnaire_Evaluations
         public Appreciation(string appreciation, Activity activity)
            : base(activity)
         {
+            this.point = Equivalent(appreciation);
         }
-        public override void setAppreciation(string appreciation)
+        public  void setAppreciation(string appreciation)
         {
             this.point = Equivalent(appreciation);
         }
@@ -161,9 +161,6 @@ namespace Gestionnaire_Evaluations
         {
             return this.point;
         }
-        public override void setNote(float x)
-        {
-        }
     }
 
     public class Program
@@ -184,17 +181,19 @@ namespace Gestionnaire_Evaluations
 
             Activity info = new Activity(6, "informatique", "3BEee", Lurkin);
 
-            Evaluation e = new Cote(info);
+            Evaluation e = new Cote(info, 15);
             Console.WriteLine(e.Note());
-            e.setNote(2);
+            //e.setNote(2);
+            e.Note();
 
             marti.AddEval(e);
 
             Activity chimie = new Activity(6, "chimie", "3BEch", Lurkin);
 
-            Evaluation i = new Cote(chimie);
+            Evaluation i = new Cote(chimie, 16);
             Console.WriteLine(i.Note());
-            i.setNote(18);
+            //i.setNote(18);
+            i.Note();
 
             marti.AddEval(i);
             Console.WriteLine(marti.Average());
@@ -204,7 +203,8 @@ namespace Gestionnaire_Evaluations
 
             Evaluation f = new Appreciation("TB", info);
             marti.AddEval(f);
-            f.setAppreciation("TB");
+            // f.setAppreciation("TB");
+            f.Note();
 
             marti.Bulletin();
 
@@ -212,40 +212,8 @@ namespace Gestionnaire_Evaluations
 
             File.WriteAllText("db.json",jsonData);
 
-            Program.LoadJSON();
+            Loader.LoadJSON();
         }
 
-        private static void LoadJSON()
-        {
-            string jsonString = File.ReadAllText("C:/Users/Sebastien/source/repos/Gestionnaire_Évaluations/db.json");
-
-            JObject stud = JObject.Parse(jsonString);
-            IList<JToken> students = stud["Students"].Children().ToList();    // ici je cherche tous mes students dans mon JSON 
-            IList<Student> studentlist = new List<Student>();
-            foreach (JToken result in students)
-            {
-                Student stu = result.ToObject<Student>();                        // Ici je les créé en objets me semble-t-il
-                studentlist.Add(stu);                                     // cette liste me servira à imprimer les bulletins après, c'est une liste d'objets 
-            }
-
-
-
-            JObject ev = JObject.Parse(jsonString);
-            IList<JToken> evals = ev["Evaluations"].Children().ToList();     // ici pareil qu'avec students, on les cherche puis on les crée 
-            foreach (JToken result in evals)
-            {
-                Evaluation iter = result.ToObject<Evaluation>();
-            }
-
-
-
-            
-            foreach (Student s in studentlist)   //je parcours chaque objet Student dans la list d'objets Students
-            {
-                Console.WriteLine(s.Average());
-            }
-
-            
-        }
     }
 }
