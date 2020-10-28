@@ -212,7 +212,6 @@ namespace Gestionnaire_Evaluations
 
             File.WriteAllText("db.json",jsonData);
 
-            Loader.LoadJSON();
         }
 
     }
